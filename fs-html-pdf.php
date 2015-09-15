@@ -12,7 +12,8 @@ License: PRIVATE
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 // $dir = plugin_dir_url( __FILE__ );
-include_once( 'mpdf60/mpdf.php' );
+include( 'mpdf60/mpdf.php' );
+include_once( 'template.php' );
 
 
 // 
@@ -45,10 +46,15 @@ function sniff_requests(){
 
 function handle_request(){
   
-  $mpdf=new mPDF();
+  $mpdf = new mPDF();
   
-  $html = '<p>Hallo World</p>';
-  $html = file_get_contents( plugin_dir_url( __FILE__ ) . 'example.html');
+  // $html = file_get_contents( plugin_dir_url( __FILE__ ) . 'template.html');
+  
+  $html = template_html(
+    array(
+      'title' => 'This is the title',
+    )
+  );
 
   $mpdf->WriteHTML($html);
 
